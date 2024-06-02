@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de connexion</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function toggleAdvancedOptions() {
+            var advancedOptions = document.getElementById('advanced-options');
+            if (advancedOptions.style.display === 'none') {
+                advancedOptions.style.display = 'block';
+            } else {
+                advancedOptions.style.display = 'none';
+            }
+        }
+
+        function updateRangeValue(id, value) {
+            document.getElementById(id).innerText = value + "%";
+        }
+
+        function toggleMode() {
+            var mode = document.querySelector('input[name="mode"]:checked').value;
+            var networkFields = document.getElementById("network-fields");
+
+            if (mode === "reseau") {
+                networkFields.style.display = "block";
+            } else {
+                networkFields.style.display = "none";
+            }
+        }
+
+        function runPythonScript() {
+            fetch('/run-script', {
+                method: 'POST',
+            }).then(response => response.text())
+              .then(data => alert(data))
+              .catch(error => console.error('Error:', error));
+        }
+        function goToHomePage() {
+            window.location.href = "/";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Configuration du Système de Reconnaissance Faciale</h2>
+        <form id="configForm" action="/connexion" method="POST">
+            <div class="net-group">
+                <div class="form-group">
+                    <label for="roomName">Nom de la salle :</label>
+                    <input type="text" id="roomName" name="roomName" required value="{{ default_values.room_name }}" />
+                </div>
+                <div class="tooltip">
+                    <div class="form-group select-arrow" style="position: relative;">
+                        <label for="rotation">Rotation :</label>
+                        <select id="rotation" name="rotation">
+                            <option value="0" {% if default_values.rotation == '0' %}selected{% endif %}>0°</option>
+                            <option value="90" {% if default_values.rotation == '90' %}selected{% endif %}>90°</option>
+                            <option value="180" {% if default_values.rotation == '180' %}selected{% endif %}>180°</option>
+                            <option value="270" {% if default_values.rotation == '270' %}selected{% endif %}>270°</option>
+                        </select>
+                        <span class="tooltiptext">Degré de rotation de l'appareil</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="appURL">URL de l'application :</label>
+                <input id="appURL" name="appURL" required value="{{ default_values.app_url }}" />
+            </div>
+
+            <div class="form-group">
+                <label for="mode">Mode :</label>
+                <div class="mode-options">
+                    <label class="radio-label">
+                        <input type="radio" name="mode" value="reseau" onclick="toggleMode()" {% if default_values.mode == 'reseau' %}checked{% endif %}> Réseau
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="mode" value="hotspot" onclick="toggleMode()" {% if default_values.mode == 'hotspot' %}checked{% endif %}> Hotspot
+                    </label>
+                </div>
+            </div>
+
+            <div id="network-fields" {% if default_values.mode != 'reseau' %}style="display:none"{% endif %}>
+                <div class="net-group">
+                    <div class="tooltip">
+                        <div class="form-group">
+                            <label for="ssid">SSID du réseau :</label>
+                            <span class="tooltiptext">Nom du réseau</span>
+                            <input type="text" id="ssid" name="ssid"  value="{{ default_values.ssid }}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe :</label>
+                        <input type="password" id="password" name="password"  value="{{ default_values.password }}" />
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="advanced-button" onclick="toggleAdvancedOptions()">Options avancées</button><br><br>
+            
+            <div id="advanced-options" style="display: none;">
+                <div class="form-group range-container">
+                    <label for="detection_threshold">Seuil de détection :</label>
+                    <input type="range" id="detection_threshold" name="detection_threshold" min="10" max="100" step="1" oninput="updateRangeValue('detection_value', this.value)" value="{{ (default_values.detection_threshold | float) * 100 }}">
+                    <span id="detection_value" class="range-value">{{ (default_values.detection_threshold | float) * 100 }}%</span>
+                </div>
+                <div class="form-group range-container">
+                    <label for="recognition_threshold">Seuil de reconnaissance :</label>
+                    <input type="range" id="recognition_threshold" name="recognition_threshold" min="0" max="1" step="0.01" oninput="updateRangeValue('recognition_value', this.value)" value="{{ default_values.recognition_threshold }}">
+                    <span id="recognition_value" class="range-value">{{ default_values.recognition_threshold }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="tracker_max_distance">Distance maximale du tracker:</label>
+                    <input type="number" id="tracker_max_distance" name="tracker_max_distance" value="{{ default_values.tracker_max_distance }}">
+                </div>
+                <div class="form-group">
+                    <label for="tracker_max_frame_loss">Nombre maximale d'images perdu :</label>
+                    <input type="number" id="tracker_max_frame_loss" name="tracker_max_frame_loss" value="{{ default_values.tracker_max_frame_loss }}">
+                </div>
+            </div>
+
+            <button type="submit" id="submitButton">Configurer</button>
+        </form>
+      <button type="button" class="advanced-button" onclick="goToHomePage()">Retour à l'accueil</button>
+    </div>
+</body>
+</html>

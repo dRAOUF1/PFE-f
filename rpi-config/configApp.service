@@ -1,0 +1,13 @@
+[Unit]
+Description=Automatically start the configuration web app
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/pi/Desktop/rpi-config/app.py
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
+

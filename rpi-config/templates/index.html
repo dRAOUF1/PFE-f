@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function redirectToConfigPage() {
+            window.location.href = "/config";
+        }
+
+        function runPythonScript() {
+            fetch('/run-script', {
+                method: 'POST',
+            }).then(response => response.text())
+              .then(data => alert(data))
+              .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Bienvenue</h2>
+        <button class="home-button" onclick="redirectToConfigPage()">Aller à la page<br> de configuration</button>
+        <button class="home-button" onclick="runPythonScript()">Démarrer le système de reconnaissance</button>
+    </div>
+</body>
+</html>

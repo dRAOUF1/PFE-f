@@ -1,0 +1,255 @@
+/* Body styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  overflow: hidden; /* Empêche le débordement de la page */
+}
+
+/* Container styling */
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 473px;
+  max-height: 90vh; /* Limite la hauteur maximale à 90% de la hauteur de la vue */
+  overflow-y: auto; /* Ajoute un défilement vertical si le contenu dépasse la hauteur maximale */
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+}
+
+/* Header styling */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+/* Network group styling */
+.net-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* Label styling */
+label {
+  padding-left: 10px;
+}
+
+/* Input and select styling */
+input, select {
+  padding: 10px;
+  margin: 10px;
+  width: 90%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Range input styling */
+input[type="range"] {
+  width: calc(100% - 22px);
+  margin: 10px;
+}
+
+/* Network group input width adjustment */
+.net-group input {
+  width: 80%;
+}
+
+/* Range container styling */
+.range-container {
+  position: relative; /* Positionnement relatif pour le conteneur */
+}
+
+/* Range value styling */
+.range-value {
+  position: absolute; /* Positionnement absolu pour la valeur */
+  top: 0; /* Alignement sur le haut du conteneur */
+  right: 0; /* Alignement sur la droite du conteneur */
+  margin-right: 10px; /* Ajoute un espace entre la valeur et la barre de range */
+  font-size: 16px;
+  color: #333;
+  line-height: 20px; /* Assure l'alignement vertical avec la barre de range */
+}
+
+/* Advanced button styling */
+.advanced-button {
+  width: 230px;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 30px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px;
+}
+
+/* Advanced button hover effect */
+.advanced-button:hover {
+  background-color: #074f9b;
+}
+
+.home-button {
+  width: 230px;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 30px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+}
+
+/* Advanced button hover effect */
+.home-button:hover {
+  background-color: #074f9b;
+}
+
+/* Submit button styling */
+#submitButton {
+  width: 230px;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 30px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px;
+}
+
+/* Submit button hover effect */
+#submitButton:hover {
+  background-color: #0056b3;
+}
+
+/* Select styling */
+select {
+  padding: 10px;
+  margin: 10px;
+  margin-bottom: 25px;
+  min-width: 60%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Tooltip container styling */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text styling */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 170px;
+  font-size: 14px;
+  background-color: #f5f5f5;
+  color: black;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 130%; /* Positionne le tooltip en bas du champ */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s, top 0.3s;
+}
+
+/* Tooltip arrow styling */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #f5f5f5 transparent;
+}
+
+/* Show the tooltip text when hovering */
+.tooltip:hover .tooltiptext, .tooltip:focus-within .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+  top: 100%;
+}
+
+/* Select arrow styling */
+.select-arrow::after {
+  content: "\25BC"; /* flèche vers le bas en unicode */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* permet aux clics de passer à travers */
+}
+
+/* Apply the arrow style to the select */
+.select-arrow select {
+  appearance: none; /* supprime l'apparence native */
+  -webkit-appearance: none; /* pour les navigateurs WebKit */
+}
+.mode-options {
+  display: flex;
+  justify-content: center;
+}
+
+.radio-label {
+  margin-right: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+      width: 80%;
+  }
+
+  input, select {
+      width: 90%;
+  }
+
+  #submitButton, .advanced-button {
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip .tooltiptext {
+    width: max-content;
+    transform: translateX(-50%);
+}
+}
